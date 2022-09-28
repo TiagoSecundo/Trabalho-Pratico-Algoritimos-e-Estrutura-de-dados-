@@ -1,8 +1,8 @@
 #ifndef LISTA_H
 #define LISTA_H
 
-#define MAXTAM 5
-#define INICIO 1
+#define MAXTAM 5 // Usado para definir quantidade maxima de projetos.
+// #define INICIO 1
 typedef int TChave;
 
 typedef struct Tipoelemento *TApontador;
@@ -22,7 +22,7 @@ typedef struct TListaSequencial // projeto
     int tamanho = 0;
 };
 
-typedef struct endfuncionario
+typedef struct endfuncionario //dados do endereço do funcionario.
 {
     char rua[50];
     int numCasa;
@@ -54,7 +54,7 @@ typedef struct TListaEncadeada // posiÃ§oes do projeto
     int tamanho = 0;
 };
 
-bool Listacriada = false;
+bool Listacriada = false; // variavel setada com false apenas para conferir se a lista esta criada ou nao.
 
 void menu();
 void includeFuncionario(TFuncionario funcionario);
@@ -75,4 +75,6 @@ void Imprime_Contracheque(TListaEncadeada *lista);
 void Excluir_Func_Sem_Projetos(TListaEncadeada *lista);
 void Exclui_Projetos(TListaEncadeada *lista);
 void Consulta_funcionario(TListaEncadeada *lista);
+void Leitura_Arquivo(TListaEncadeada* listaFuncionarios);
+void Inclui_Arquivo(TListaEncadeada* listaFuncionarios);
 #endif

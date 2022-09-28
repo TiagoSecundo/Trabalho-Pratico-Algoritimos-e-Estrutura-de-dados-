@@ -8,9 +8,10 @@ using namespace std;
 int main()
 {
   int op = 0;
-  TListaEncadeada lista;
+  TListaEncadeada lista; // Criando a variavel lista para ser chamada e armazenada na função abaixo
   CriaListaVazia(&lista);
-  do {
+  Leitura_Arquivo(&lista);
+  do { //encrementado para entender a opção desejada pelo usauario sendo eles de opção 1 a 7.
   menu();
   cin >> op;
   switch (op)
@@ -41,7 +42,7 @@ int main()
   system("pause");
   system("cls");
   }
-  while (op != 7);
-
+  while (op != 7); // quando usuario digitar qualquer numero diferente de 6 o programa para instantaneamente, ja que o case 7 também serve para sair do programa
+  Inclui_Arquivo(&lista);
   return 0;
 }

@@ -5,7 +5,7 @@
 #define MAXTAM 5
 
 using namespace std;
-void menu() // menu inical do programa
+void menu() // Menu inical do programa
 {
     cout << " _________________________________________________________ " << endl;
     cout << "|                                                         | " << endl;
@@ -18,13 +18,13 @@ void menu() // menu inical do programa
     cout << "1 Inclusao de um novo funcionario. " << endl;
     cout << "2 Inclusao de novos projetos para um funcionario. " << endl;
     cout << "3 Exclusao de projetos de um funcionario. " << endl;
-    cout << "4 exclusao de um funcionario que nao trabalha em nenhum projeto. " << endl;
+    cout << "4 Exclusao de um funcionario que nao trabalha em nenhum projeto. " << endl;
     cout << "5 Consulta de um funcionario. " << endl;
     cout << "6 Imprime contra-cheque. " << endl;
     cout << "7. Sair. " << endl;
 }
 
-void includeFuncionario(TListaEncadeada *lista) // cadastro dos novos funcionarios
+void includeFuncionario(TListaEncadeada *lista) // Cadastro dos novos funcionarios
 {
     TFuncionario funcionario;
     TProjeto projeto;
@@ -54,29 +54,28 @@ void includeFuncionario(TListaEncadeada *lista) // cadastro dos novos funcionari
 
     cin.getline(funcionario.endereco.cidade, 20);
 
-    cout << "Insira numero da casa: (Apenas Numeros)" << endl; 
+    cout << "Insira numero da casa: (Apenas Numeros)" << endl;
     cin >> funcionario.endereco.numCasa;
     cin.ignore();
 
     cout << "Dependentes: (Apenas Numeros)" << endl;
     cin >> funcionario.dependentes;
-    
+
     InsereListaUltimo(lista, &funcionario); // chamando funcao pra salvar os funcionarios cadastrado na lista
 
     cout << "Para incrementar projeto digite S: " << endl;
     cin >> op;
-    
-    while (op == 'S' || op == 's'){
-       IncludeProgetos(lista);
-       cout << endl << endl << "Para continuar incrementar projeto digite S: ";
-       cin >> op;
+
+    while (op == 'S' || op == 's')
+    {
+        IncludeProgetos(lista);
+        cout << endl
+             << endl
+             << "Para continuar incrementar projeto digite S: ";
+        cin >> op;
     }
 
-    
     system("cls");
-   
-
-    
 }
 
 void CriaListaVazia(TListaEncadeada *lista) // Funçao que tera a tarefa de guardar dados em list ao longo do progeto
@@ -96,22 +95,33 @@ void CriaListaVazia(TListaEncadeada *lista) // Funçao que tera a tarefa de guar
     Sleep(1500);
 }
 
+void AtualizaUltimo(TListaEncadeada *lista)
+{
+    TApontador aux;
+    aux = lista->primeiro;
+    while (aux->prox != NULL)
+    {
+        aux = aux->prox;
+    }
+    lista->ultimo = aux;
+}
+
 bool Verifica_Lista_Encadeada_Vazia(TListaEncadeada *lista) // verificar se a lista encadeada foi criada com sucesso
 {
     return (lista->primeiro == lista->ultimo);
 }
 
-bool Verifica_Lista_Arranjo_Vazia(TListaSequencial *lista) // verificar se a lista sequencial foi criada com sucesso
+bool Verifica_Lista_Arranjo_Vazia(TListaSequencial *lista) // Verificar se a lista sequencial foi criada com sucesso
 {
     return (lista->primeiro == lista->ultimo);
 }
 
-int TamanhoLista(TListaEncadeada *lista) // retornar atualizaçoes do tamanho da lista
+int TamanhoLista(TListaEncadeada *lista) // Retornar atualizaçoes do tamanho da lista
 {
     return lista->tamanho;
 }
 
-void InsereListaUltimo(TListaEncadeada *lista, TFuncionario *item) // incrementa dados na ultima posiçãpo valida na lista
+void InsereListaUltimo(TListaEncadeada *lista, TFuncionario *item) // Incrementa dados na ultima posiçãpo valida na lista
 {
     lista->ultimo->prox = new Tipoelemento;
     lista->ultimo = lista->ultimo->prox;
@@ -120,7 +130,7 @@ void InsereListaUltimo(TListaEncadeada *lista, TFuncionario *item) // incrementa
     lista->tamanho++;
 }
 
-void Imprime_Lista_Arranjo(TListaSequencial lista) // atraves do id busca qual projeto retornar o mesmo.
+void Imprime_Lista_Arranjo(TListaSequencial lista) // Atraves do id busca qual projeto retornar o mesmo.
 {
     if (!Verifica_Lista_Arranjo_Vazia(&lista))
     {
@@ -160,7 +170,7 @@ int PesquisaFuncionario(TListaEncadeada *lista, int id) // Criada para pesquisar
     return -1;
 }
 
-void Consulta_funcionario(TListaEncadeada *lista) // retornar se o funcionario existe ou nao.
+void Consulta_funcionario(TListaEncadeada *lista) // Retornar se o funcionario existe ou nao.
 {
     TChave id;
     cout << "Insira ID: " << endl;
@@ -168,8 +178,8 @@ void Consulta_funcionario(TListaEncadeada *lista) // retornar se o funcionario e
     PesquisaFuncionario(lista, id);
 }
 
-TApontador PesquisaItem(TListaEncadeada *lista, int id)
-{ // Retornar apenas se o funcionario existe ou nao.
+TApontador PesquisaItem(TListaEncadeada *lista, int id) // Retornar apenas se o funcionario existe ou nao.
+{
     TApontador aux;
     aux = lista->primeiro->prox;
     while (aux != NULL)
@@ -183,18 +193,7 @@ TApontador PesquisaItem(TListaEncadeada *lista, int id)
     return NULL;
 }
 
-void AtualizaUltimo(TListaEncadeada *lista)
-{
-    TApontador aux;
-    aux = lista->primeiro;
-    while (aux->prox != NULL)
-    {
-        aux = aux->prox;
-    }
-    lista->ultimo = aux;
-}
-
-void RemoveItemPorId(TListaEncadeada *lista, int id)
+void RemoveItemPorId(TListaEncadeada *lista, int id) // Criada para remover itens que estão dentro da lista encadiada.
 {
     if (Verifica_Lista_Encadeada_Vazia(lista))
     {
@@ -220,18 +219,17 @@ void RemoveItemPorId(TListaEncadeada *lista, int id)
     anterior->prox = aux->prox;
     delete aux;
     lista->tamanho--;
-    AtualizaUltimo(lista);
+    AtualizaUltimo(lista); // chamada para sempre atualizar as novas posições após alguma exclusão.
 }
 
-int remove_Item_porID_Sequencial(TListaSequencial *lista, int id)
+int remove_Item_porID_Sequencial(TListaSequencial *lista, int id) // Criada para remover itens que estão dentro da lista sequencial.
 {
-    int a = 0;
-    for (int j = 0; j < lista->tamanho; j++)
+
+    for (int j = 0; j < lista->tamanho; j++) // Usado para procurar a lista inteira
     {
         if (lista->item[j].id == id)
         {
-            a = j;
-            for (int i = a; i < lista->tamanho; i++)
+            for (int i = j; i < lista->tamanho; i++) // Decrementa todos os itens desejados uma casa.
             {
                 lista->item[i] = lista->item[i + 1];
             }
@@ -242,7 +240,7 @@ int remove_Item_porID_Sequencial(TListaSequencial *lista, int id)
     return -1;
 }
 
-void IncludeProgetos(TListaEncadeada *projetos)
+void IncludeProgetos(TListaEncadeada *projetos) // Feita para armazenar projetos na lista encadeada.
 {
     TApontador aux;
     TProjeto b;
@@ -266,20 +264,29 @@ void IncludeProgetos(TListaEncadeada *projetos)
     {
         if (aux->item.id == id)
         {
-            c = aux->item.projetos.tamanho;
-            cout << "Insira nome do projeto: " << endl;
-            cin >> aux->item.projetos.item[c].nome;
-            cout << "Insira ID do projeto: " << endl;
-            cin >> aux->item.projetos.item[c].id;
-            cout << "Insira horas trabalhadas no projeto: " << endl;
-            cin >> aux->item.projetos.item[c].horas;
-            aux->item.projetos.tamanho++;
+
+            if (aux->item.projetos.tamanho >= MAXTAM)
+            {
+                cout << "Nao e possivel incrementar um projeto, lista ja esta completa " << endl;
+                Sleep(1000);
+            }
+            else
+            {
+                c = aux->item.projetos.tamanho;
+                cout << "Insira nome do projeto: " << endl;
+                cin >> aux->item.projetos.item[c].nome;
+                cout << "Insira ID do projeto: (Utilize apenas numeros.)" << endl;
+                cin >> aux->item.projetos.item[c].id;
+                cout << "Insira horas trabalhadas no projeto: (Utilize apenas numeros.)" << endl;
+                cin >> aux->item.projetos.item[c].horas;
+                aux->item.projetos.tamanho++;
+            }
         }
         aux = aux->prox;
     }
 }
 
-void Exclui_Projetos(TListaEncadeada *lista)
+void Exclui_Projetos(TListaEncadeada *lista) // Exclui projetos ja criados.
 {
     TApontador aux;
     TChave id;
@@ -304,8 +311,8 @@ void Exclui_Projetos(TListaEncadeada *lista)
     {
         if (aux->item.id == id)
         {
-            PesquisaFuncionario(lista, id);
-            Imprime_Lista_Arranjo(aux->item.projetos);
+            PesquisaFuncionario(lista, id);            // Busca informação do funcionario
+            Imprime_Lista_Arranjo(aux->item.projetos); // imprimir os projetos
             cout << "Insira ID do projeto deseja excluir: " << endl;
             cin >> id;
             c = remove_Item_porID_Sequencial(&aux->item.projetos, id);
@@ -318,7 +325,7 @@ void Exclui_Projetos(TListaEncadeada *lista)
     }
 }
 
-void Excluir_Func_Sem_Projetos(TListaEncadeada *lista)
+void Excluir_Func_Sem_Projetos(TListaEncadeada *lista) // Excluir todos os funcionarios ou apenas um.
 {
     TApontador aux;
     TChave id;
@@ -373,7 +380,7 @@ void Excluir_Func_Sem_Projetos(TListaEncadeada *lista)
     }
 }
 
-void Imprime_Contracheque(TListaEncadeada *lista)
+void Imprime_Contracheque(TListaEncadeada *lista) // Calculo do valor que o funcionario receberá após a entrega dos projetos.
 {
     TApontador aux;
     float salarioB = 0.0, salarioL = 0.0, inss = 0, imposto = 0.0;
@@ -397,6 +404,31 @@ void Imprime_Contracheque(TListaEncadeada *lista)
              << "Desconto INSS: " << inss << endl;
         cout << "Imposto de Renda: " << imposto << endl
              << "Salario Liquido: " << salarioL << endl;
+        aux = aux->prox;
+    }
+}
+
+void Leitura_Arquivo(TListaEncadeada *listaFuncionarios) // Lê o arquivo e caso exista a função inclui todos os funcionarios na bin.
+{
+    FILE *file = fopen("funcionarios.bin", "r");
+    TFuncionario funcionario;
+    if (file != NULL)
+    {
+        while (fread(&funcionario, sizeof(TFuncionario), 1, file))
+        {
+
+            InsereListaUltimo(listaFuncionarios, &funcionario);
+        }
+    }
+}
+
+void Inclui_Arquivo(TListaEncadeada *listaFuncionarios) // Apenas salva os funcionarios na lista.
+{
+    FILE *file = fopen("funcionarios.bin", "w");
+    TApontador aux = listaFuncionarios->primeiro->prox;
+    while (aux != NULL)
+    {
+        fwrite(&aux->item, sizeof(TFuncionario), 1, file);
         aux = aux->prox;
     }
 }
